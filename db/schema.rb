@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_07_114650) do
+ActiveRecord::Schema.define(version: 2023_02_07_122923) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
-    t.date "to_do_date"
+    t.date "task_date"
     t.text "task_description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "is_task_recurring"
     t.boolean "is_urgent", default: false
     t.boolean "is_completed", default: false
     t.integer "custom_recur_frequency_number"
@@ -26,8 +25,9 @@ ActiveRecord::Schema.define(version: 2023_02_07_114650) do
     t.integer "repeat_on"
     t.date "recurrence_start_date"
     t.date "recurrence_end_date"
-    t.string "type_of_to_do_list"
+    t.string "type_of_task"
     t.integer "recurrence_rate"
+    t.integer "from_recurring_tasks_id"
   end
 
 end

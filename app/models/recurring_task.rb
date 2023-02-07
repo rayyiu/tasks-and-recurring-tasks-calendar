@@ -1,5 +1,5 @@
 class RecurringTask < Task 
-    default_scope { ToDoList.unscoped.where(type_of_to_do_list: 'RecurringToDoList') }
+    default_scope { Task.unscoped.where(type_of_task: 'RecurringTask') }
 
     enum recurrence_rate: {
         daily: 0,
@@ -20,5 +20,12 @@ class RecurringTask < Task
         years: 4
       }
 
-      
+      validates :title, :recurrence_rate, :recurrence_start_date, presence: true
+      validates :custom_recur_frequency_number,
+      numericality: { greater_than: 0 },
+      if: lambda { |o|
+            o.custom_recur_frequency_interval.present?
+          }
+
+
 end

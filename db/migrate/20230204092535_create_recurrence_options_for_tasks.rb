@@ -1,7 +1,6 @@
 class CreateRecurrenceOptionsForTasks < ActiveRecord::Migration[6.1]
   def change
     change_table :tasks do |t|
-      t.string :is_task_recurring
       t.boolean :is_urgent, default: false
       t.boolean :is_completed, default: false
       t.integer :custom_recur_frequency_number, :custom_recur_frequency_interval
