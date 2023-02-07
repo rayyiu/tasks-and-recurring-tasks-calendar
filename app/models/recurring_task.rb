@@ -1,0 +1,3 @@
+class RecurringTask < Task 
+
+end
