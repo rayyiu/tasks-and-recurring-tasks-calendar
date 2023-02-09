@@ -2,6 +2,7 @@
   "name": "tasks-and-recurring-tasks-calendar",
   "private": true,
   "dependencies": {
+    "@prettier/plugin-ruby": "^3.2.2",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",

@@ -11,7 +11,11 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
-  def create 
-    @task = Task.new()
+  def create
+    @task = Task.new(title: params[:title], task_date: params[:task_date])
+
+    if @task.save
+      redirect_to @task
+    end
   end
 end

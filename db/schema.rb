@@ -29,5 +29,4 @@ ActiveRecord::Schema.define(version: 2023_02_07_122923) do
     t.integer "recurrence_rate"
     t.integer "from_recurring_tasks_id"
   end
-
 end
