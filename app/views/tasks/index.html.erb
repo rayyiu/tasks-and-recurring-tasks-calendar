@@ -1,12 +1,19 @@
 <div class="container box">
-    <div>Tasks</div>
-    <div class="content">
-        <% @tasks.each do |task| %>
-            <%= task.title %>
-            <%= task.task_description %>
-            <%= task.type_of_task %>
-        <% end %>
-        <div class="button is-success"><%= link_to "New Task", new_task_path %></div>
+    <div class="block">
+        <div class="title">Tasks</div>
+        <div class="subtitle">A Simple Task Manager</div>
     </div>
+    <div class="block">
+        <% @tasks.each do |task| %>
+            <div class="card">
+                <div class="card-content">
+                    <div class="title"><%= task.title%></div>
+                    <div class="subtitle"><%= task.task_description %></div>
+                    <div class="subtitle"><%= task.created_at %></div>  
+                    <div class="subtitle"><%= task.type_of_task %></div>  
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div><%= link_to "New Task", new_task_path, class: "button is-secondary" %></div>
 </div>
-``

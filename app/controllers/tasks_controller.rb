@@ -12,10 +12,18 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(title: params[:title], task_date: params[:task_date])
+    @task = Task.new(task_params)
 
     if @task.save
-      redirect_to @task
+      redirect_to action: 'index', status: 303
+    else 
+      render :new, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def task_params 
+    params.require(:task).permit(:title, :task_description, :task_date, :is_urgent)
   end
 end
