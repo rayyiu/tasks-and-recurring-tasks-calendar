@@ -19,6 +19,16 @@ const CUSTOM_RECURRENCE_RATES = [
   { label: "Year(s)", value: "years" },
 ];
 
+const WEEKDAY_MAPPING = [
+  { value: 0, label: "S" },
+  { value: 1, label: "M" },
+  { value: 2, label: "T" },
+  { value: 3, label: "W" },
+  { value: 4, label: "T" },
+  { value: 5, label: "F" },
+  { value: 6, label: "S" },
+];
+
 
 class RecurrenceSelector extends React.Component {
   render () {
