@@ -26,4 +26,24 @@ class RecurringTask < Task
             if: lambda { |o|
                   o.custom_recur_frequency_interval.present?
                 }
+
+  def custom_weekly_recurrence?
+    recurrence_rate == 'custom' && custom_recur_frequency_interval == 'weekly'
+  end
+
+  def custom_hourly_recurrence?
+    recurrence_rate == 'custom' && custom_recur_frequency_interval == 'hours'
+  end
+
+  def get_custom_hourly_recurrences(date)
+    get_ice_cube_schedule.occurrences_between(date, date + 1, spans: true)
+  end
+
+  def recurrence_description
+    get_ice_cube_schedule.to_s
+  end
+
+  def calculate_recurrence_dates_based_on_date(date)
+    get_ice_cube_schedule.occurs_on?(date)
+  end
 end
