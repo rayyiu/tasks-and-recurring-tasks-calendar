@@ -13,7 +13,7 @@ class RecurringTask < Task
   }
 
   enum custom_recur_frequency_interval: {
-    hours: 0,
+    # hours: 0,                   Not currently implemented
     days: 1,
     weeks: 2,
     months: 3,
@@ -45,5 +45,51 @@ class RecurringTask < Task
 
   def calculate_recurrence_dates_based_on_date(date)
     get_ice_cube_schedule.occurs_on?(date)
+  end
+
+  def get_ice_cube_schedule
+    task_recurrence_schedule = IceCube::Schedule.new(recurrence_start_date)
+
+    case recurrence_rate
+    when 'daily'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.daily.until(recurrence_end_date))
+    when 'every_weekday'
+      task_recurrence_schedule
+        .add_recurrence_rule(IceCube::Rule.weekly(1)
+        .day(1, 2, 3, 4, 5).until(recurrence_end_date))
+    when 'every_other_day'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.daily(2).until(recurrence_end_date))
+    when 'weekly'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.weekly)
+    when 'every_other_week'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.weekly(2).until(recurrence_end_date))
+    when 'monthly'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.monthly.until(recurrence_end_date)) # if it's the 15th of August, is it the 15th of September then?
+    when 'annually'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.yearly.until(recurrence_end_date)) # check until as exclusive or inclusive.
+    when 'custom'
+      task_recurrence_schedule = calculate_custom_recurrence_date
+    end
+
+    task_recurrence_schedule
+  end
+
+  private
+
+  def calculate_custom_recurrence_date
+    task_recurrence_schedule = IceCube::Schedule.new(recurrence_start_date)
+    custom_number = custom_recur_frequency_number
+    case custom_recur_frequency_interval
+    when 'days'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.daily(custom_number).until(recurrence_end_date))
+    when 'weeks'
+      # ice_cube takes dates in the format (1, 2, 3) as well
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.weekly(custom_number).day(repeat_on).until(recurrence_end_date))
+    when 'months'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.monthly(custom_number).until(recurrence_end_date))
+    when 'years'
+      task_recurrence_schedule.add_recurrence_rule(IceCube::Rule.yearly(custom_number).until(recurrence_end_date))
+    end
+    task_recurrence_schedule
   end
 end
