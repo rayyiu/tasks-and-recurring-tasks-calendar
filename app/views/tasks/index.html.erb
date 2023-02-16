@@ -1,11 +1,12 @@
-<h1>Tasks</h1>
-<ul>
-    <li>
+<div class="container box">
+    <div>Tasks</div>
+    <div class="content">
         <% @tasks.each do |task| %>
             <%= task.title %>
             <%= task.task_description %>
             <%= task.type_of_task %>
         <% end %>
-        <%= link_to "New Task", new_task_path %>
-    </li>
-</ul>
+        <div class="button is-success"><%= link_to "New Task", new_task_path %></div>
+    </div>
+</div>
+``
