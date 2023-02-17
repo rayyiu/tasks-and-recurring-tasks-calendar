@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 
 const RECURRENCE_RATES = [
   { label: "Daily", value: "daily" },
@@ -28,6 +28,8 @@ const WEEKDAY_MAPPING = [
   { value: 5, label: "F" },
   { value: 6, label: "S" },
 ];
+
+const RecurrenceTaskContext = createContext();
 
 
 class RecurrenceSelector extends React.Component {
