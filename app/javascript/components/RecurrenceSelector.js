@@ -31,14 +31,80 @@ const WEEKDAY_MAPPING = [
 
 const RecurrenceTaskContext = createContext();
 
+const RecurrenceSelector = (props) => {
+  const [isRecurringTask, setIsRecurringTask] = useState(true);
+  const [selectedRecurrenceRate, setSelectedRecurrenceRate] = useState("Daily");
+  const [selectedCustomRecurrenceRate, setSelectedCustomRecurrenceRate] =
+    useState(1);
+  const [selectedCustomRecurrenceType, setSelectedCustomRecurrenceType] =
+    useState("Hours");
+  const [taskStartDate, setTaskStartDate] = useState();
+  const [taskEndDate, setTaskEndDate] = useState();
+  const [selectedWeekdays, setSelectedWeekdays] = useState([]);
 
-class RecurrenceSelector extends React.Component {
-  render () {
-    return (
-      <React.Fragment>
-      </React.Fragment>
-    );
-  }
-}
+  useEffect(() => {
+    const {
+      type_of_task,
+      recurrence_rate,
+      custom_recur_frequency_interval,
+      custom_recur_frequency_number,
+      repeat_on,
+      recurrence_start_date,
+      recurrence_end_date,
+    } = props;
 
-export default RecurrenceSelector
+    setIsRecurringTask(type_of_task !== null);
+    setSelectedRecurrenceRate(recurrence_rate);
+    setSelectedCustomRecurrenceType(custom_recur_frequency_interval);
+    setSelectedCustomRecurrenceRate(custom_recur_frequency_number);
+    setTaskStartDate(recurrence_start_date);
+    setTaskEndDate(recurrence_end_date);
+    setSelectedWeekdays(repeat_on || []);
+  }, []);
+
+  const recurringTypeOnChange = (event) => {
+    setIsRecurringTask(event.target.value === "recurring");
+  };
+
+  const { controller_action: controllerAction } = props;
+  return (
+    <RecurrenceTaskContext.Provider
+      value={{
+        selectedRecurrenceRate,
+        setSelectedRecurrenceRate,
+        selectedCustomRecurrenceRate,
+        setSelectedCustomRecurrenceRate,
+        selectedCustomRecurrenceType,
+        setSelectedCustomRecurrenceType,
+        selectedWeekdays,
+        setSelectedWeekdays,
+        taskStartDate,
+        setTaskStartDate,
+        taskEndDate,
+        setTaskEndDate,
+      }}
+    >
+      <div className="recurrence-selector">
+        <div className="row">
+          <label className="label">Task Recurrence*</label>
+          <div className="select is-rounded row">
+            <select
+              name="task[task_type_selection]"
+              onChange={recurringTypeOnChange}
+              disabled={controllerAction != "new"}
+            >
+              <option value="one time" selected={!isRecurringTask}>
+                One time
+              </option>
+              <option value="recurring" selected={isRecurringTask}>
+                Recurring
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </RecurrenceTaskContext.Provider>
+  );
+};
+
+export default RecurrenceSelector;
