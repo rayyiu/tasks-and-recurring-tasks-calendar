@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
   end
-  
+
   def show
     @task = Task.find(params[:id])
   end
@@ -16,14 +16,19 @@ class TasksController < ApplicationController
 
     if @task.save
       redirect_to action: 'index', status: 303
-    else 
+    else
       render :new, status: :unprocessable_entity
     end
   end
 
+  def index_date_search
+    date_param
+  end
+  # so we need to grab the date_param and store it in a variable, and then select all the tasks that have that to_do_date
+
   private
 
-  def task_params 
+  def task_params
     params.require(:task).permit(:title, :task_description, :task_date, :is_urgent)
   end
 end
