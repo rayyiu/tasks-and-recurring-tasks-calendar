@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   #   end
   # end
+  resources :recurring_tasks, controller: :to_do_lists
 end
