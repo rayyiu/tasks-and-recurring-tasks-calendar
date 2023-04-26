@@ -21,8 +21,8 @@ class TasksController < ApplicationController
     end
   end
 
-  def index_date_search
-    date_param
+  def index_search
+    to_do_list_params[:to_do_date] = index_search_params[:to_do_date] || to_do_list_params[:to_do_date]
   end
   # so we need to grab the date_param and store it in a variable, and then select all the tasks that have that to_do_date
 
