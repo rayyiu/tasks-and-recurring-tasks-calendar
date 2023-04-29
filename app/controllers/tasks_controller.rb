@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+  include TasksHelper
   def index
-    @tasks = Task.all
+    search_tasks_by_params
+    @tasks = Task.where(created_at: params[:task_date])
   end
 
   def show
-    @task = Task.find(params[:id])
+    @tasks = Task.where(task_date: params[:task_date])
   end
 
   def new
@@ -22,13 +24,14 @@ class TasksController < ApplicationController
   end
 
   def index_search
-    to_do_list_params[:to_do_date] = index_search_params[:to_do_date] || to_do_list_params[:to_do_date]
+    task_list_params[:task_date] = index_search_params[:task_date] || task_list_params[:task_date]
+    respond_to do |format|
+      format.html { redirect_to tasks_index_path }
+    end
   end
-  # so we need to grab the date_param and store it in a variable, and then select all the tasks that have that to_do_date
+  # so we need to grab the date_param and store it in a variable, and then select all the tasks that have that task_date
 
-  private
-
-  def task_params
-    params.require(:task).permit(:title, :task_description, :task_date, :is_urgent)
-  end
+  # def task_params
+  #   params.require(:task).permit(:title, :task_description, :task_date, :is_urgent)
+  # end
 end

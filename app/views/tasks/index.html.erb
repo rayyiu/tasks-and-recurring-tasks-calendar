@@ -17,4 +17,13 @@
         <% end %>
     </div>
     <div><%= link_to "New Task", new_task_path, class: "button is-secondary" %></div>
+    <div><%= link_to "Next Day"%></div>
+    <div><%= link_to "Previous Day"%></div>
+    <%= task_index_header_form do %>
+        <%= 
+        date_field_tag "task_date",
+        params[:task_date],
+        onchange: 'this.form.submit()'
+        %>
+    <% end %>
 </div>
