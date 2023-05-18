@@ -2,7 +2,7 @@ module TasksHelper
   def search_tasks_by_params
     # non_recurring_tasks filtering
     query_params = {}
-    query_params[:task_date] = @task_date_param
+    query_params[:task_date] = params[]
     non_recurring_tasks = Task.where(query_params)
 
     # Recurring Tasks filtering unimplemented
