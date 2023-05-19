@@ -23,7 +23,7 @@
     <%= task_index_header_form do %>
         <%= 
         date_field_tag "task_date",
-        params[:task_date],
+        @task_date.strftime('%Y-%m-%d'),
         onchange: 'this.form.submit()'
         %>
     <% end %>
