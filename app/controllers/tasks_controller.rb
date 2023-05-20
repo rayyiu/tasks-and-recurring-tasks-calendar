@@ -5,7 +5,7 @@ class TasksController < ApplicationController
     # search_tasks_by_params
     # the date needs to persist based on either the Date.today or the date that the user previously inputted
     # in the date_field tag
-    @task_date = params[:task_date].present? ? Date.parse(params[:task_date]) : Date.today
+    @task_date = task_params[:task_date].present? ? Date.parse(task_params[:task_date]) : Date.today
     @tasks = Task.where(task_date: @task_date)
     puts @tasks
   end
