@@ -10,7 +10,7 @@
     <%= form_tag tasks_path, method: :get do %>
         <%= label_tag :task_date, "filter by date" %>
         <% if params[:task_date].present? %>
-            <%= date_field_tag :task_date, value: params[:task_date].in_time_zone('Pacific Time (US & Canada)').to_date %>
+            <%= date_field_tag :task_date, params[:task_date].in_time_zone('Pacific Time (US & Canada)').to_date %>
         <% else %>
             <%= date_field_tag :task_date %>
         <% end %>
@@ -25,7 +25,8 @@
                     <div class="row">
                         <div class="title"><%= task.title%></div>
                         <div class="subtitle"><%= task.task_description %></div>
-                        <div class="subtitle"><%= task.created_at %></div>  
+                        <div class="subtitle"><%= task.created_at %></div> 
+                        <div class="subtitle"><%= task.task_date %></div> 
                         <div class="subtitle"><%= task.type_of_task %></div>  
                     </div>
                     <div class="row">
