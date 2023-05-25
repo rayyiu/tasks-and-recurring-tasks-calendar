@@ -22,10 +22,15 @@
         <% @tasks.each do |task| %>
             <div class="card">
                 <div class="card-content">
-                    <div class="title"><%= task.title%></div>
-                    <div class="subtitle"><%= task.task_description %></div>
-                    <div class="subtitle"><%= task.created_at %></div>  
-                    <div class="subtitle"><%= task.type_of_task %></div>  
+                    <div class="row">
+                        <div class="title"><%= task.title%></div>
+                        <div class="subtitle"><%= task.task_description %></div>
+                        <div class="subtitle"><%= task.created_at %></div>  
+                        <div class="subtitle"><%= task.type_of_task %></div>  
+                    </div>
+                    <div class="row">
+                        <div class="button"><%= link_to 'Edit Task', edit_task_path(task) %></div>
+                    </div>
                 </div>
             </div>
         <% end %>

@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
   include TasksHelper
   def index
-    @tasks = (Task.where(task_date: params[:task_date]).order(:task_date) if params[:task_date].present?)
+    @tasks = if params[:task_date].present?
+               Task.where(task_date: params[:task_date]).order(:task_date)
+             else
+               Task.order(task_date: :desc)
+             end
+    # @tasks = (Task.where(task_date: params[:task_date]).order(:task_date) if params[:task_date].present?)
   end
 
   def show
@@ -22,6 +27,10 @@ class TasksController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @task = Task.find(params[:id])
   end
 
   def index_search
