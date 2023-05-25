@@ -1,12 +1,7 @@
 class TasksController < ApplicationController
   include TasksHelper
   def index
-    @tasks = if params[:task_date].present?
-               Task.where(task_date: params[:task_date]).order(:task_date)
-             else
-               Task.order(task_date: :desc)
-             end
-    # @tasks = (Task.where(task_date: params[:task_date]).order(:task_date) if params[:task_date].present?)
+    @tasks = params[:task_date].present? ? Task.where(task_date: params[:task_date]).order(:task_date) : Task.order(task_date: :desc)
   end
 
   def show
@@ -53,6 +48,12 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:task_date, :title, :task_description)
+  end
+
+  VALID_ACTIONS = %w[new edit]
+
+  def action_valid?
+    VALID_ACTIONS.include?(params[:action])
   end
 
   def index_search_params; end

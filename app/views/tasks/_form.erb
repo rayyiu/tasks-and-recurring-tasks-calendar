@@ -18,7 +18,7 @@
     <%= f.label :is_urgent, class: "label" %>
     <div class="control"><%= f.check_box :is_urgent, value: @task.is_urgent, class: "checkbox" %></div>
   </div>
-  <div class="field is-grouped">
-    <%= f.submit 'Create Task', class: "button is-link"%>
-  </div>
+<div class="field is-grouped">
+  <%= f.submit (params[:action] == "new" ? "Create Task" : "Edit Task"), class: "button is-link" %>
+</div>
 <% end %>
