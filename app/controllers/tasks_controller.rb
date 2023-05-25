@@ -33,6 +33,16 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      redirect_to @task, notice: 'Task was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
   def index_search
     task_params[:task_date] = index_search_params[:task_date] || task_list_params[:task_date]
     respond_to do |format|
