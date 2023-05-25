@@ -4,8 +4,17 @@
         <%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
         <div class="subtitle">A Simple Task Manager</div>
     <% puts params %>
+    <div><%= link_to "New Task", new_task_path, class: "button is-secondary" %></div>
+    <div><%= link_to "Next Day"%></div>
+    <div><%= link_to "Previous Day"%></div>
+    <%= form_tag tasks_path, method: :get do %>
+        <%= label_tag :task_date, "filter by date" %>
+        <%= date_field_tag :task_date, params[:task_date] %>
+        <%= submit_tag "Filter" %>
+    <% end %>
     </div>
     <div class="block">
+    <% if @tasks.present? %>
         <% @tasks.each do |task| %>
             <div class="card">
                 <div class="card-content">
@@ -16,13 +25,6 @@
                 </div>
             </div>
         <% end %>
-    </div>
-    <div><%= link_to "New Task", new_task_path, class: "button is-secondary" %></div>
-    <div><%= link_to "Next Day"%></div>
-    <div><%= link_to "Previous Day"%></div>
-    <%= form_tag tasks_path, method: :get do %>
-        <%= label_tag :task_date, "filter by date" %>
-        <%= date_field_tag :task_date, params[:task_date] %>
-        <%= submit_tag "Filter" %>
     <% end %>
+    </div>
 </div>
