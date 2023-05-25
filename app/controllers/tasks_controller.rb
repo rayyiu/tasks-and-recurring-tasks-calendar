@@ -1,17 +1,7 @@
 class TasksController < ApplicationController
   include TasksHelper
   def index
-    @tasks = if params[:task_date].present?
-               Task.where(task_date: params[:task_date]).order(:task_date)
-               #  else
-               #    Task.order(:task_date)
-             end
-    # search_tasks_by_params
-    # the date needs to persist based on either the Date.today or the date that the user previously inputted
-    # in the date_field tag
-    # @task_date = task_params[:task_date].present? ? Date.parse(task_params[:task_date]) : Date.today
-    # @tasks = Task.where(task_date: @task_date)
-    # puts @tasks
+    @tasks = (Task.where(task_date: params[:task_date]).order(:task_date) if params[:task_date].present?)
   end
 
   def show
