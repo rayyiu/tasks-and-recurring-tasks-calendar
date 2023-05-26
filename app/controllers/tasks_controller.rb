@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   include TasksHelper
   def index
-    @tasks = params[:task_date].present? ? Task.where(task_date: params[:task_date]).order(:task_date) : Task.order(task_date: :desc)
+    @tasks = params[:task_date].present? ? Task.where(task_date: params[:task_date]).where.not(is_completed: true).order(:task_date) : Task.where.not(is_completed: true).order(task_date: :desc)
   end
 
   def show
