@@ -38,6 +38,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def mark_as_completed
+    @task = Task.find(params[:id])
+    @task.update(is_completed: true)
+    flash[:success] = 'Task marked as complete'
+    redirect_to tasks_path
+  end
+
+  def destroy; end
+
   def index_search
     task_params[:task_date] = index_search_params[:task_date] || task_list_params[:task_date]
     respond_to do |format|

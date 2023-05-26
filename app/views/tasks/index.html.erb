@@ -31,6 +31,7 @@
                     </div>
                     <div class="row">
                         <div class="button"><%= link_to 'Edit Task', edit_task_path(task) %></div>
+                        <div class="button"><%= link_to "Mark as Completed", mark_as_completed_task_path(task), method: :patch %></div>
                     </div>
                 </div>
             </div>
