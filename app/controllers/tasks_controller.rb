@@ -46,7 +46,13 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
-  def destroy; end
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    respond_to do |format|
+      format.html { redirect_to tasks_path, notice: 'Task was successfully deleted' }
+    end
+  end
 
   def index_search
     task_params[:task_date] = index_search_params[:task_date] || task_list_params[:task_date]
