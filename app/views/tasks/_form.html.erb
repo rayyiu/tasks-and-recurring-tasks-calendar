@@ -18,9 +18,10 @@
       <%= f.label :is_urgent, class: "label" %>
       <div class="control"><%= f.check_box :is_urgent, value: @task.is_urgent, class: "checkbox" %></div>
     </div>
+    <%= react_component("RecurrenceSelector", {type_of_task: @task.type_of_task, controller_action: params[:action], **@task.as_json} ) %>
+
     <div class="field is-grouped">
       <%= f.submit (params[:action] == "new" ? "Create Task" : "Edit Task"), class: "button is-link" %>
     </div>
-    <%= react_component("recurrence_selector", {type_of_to_do_list: @to_do_list.type_of_to_do_list, controller_action: params[:action], **@to_do_list.as_json} ) %>
   <% end %>
 </div>
