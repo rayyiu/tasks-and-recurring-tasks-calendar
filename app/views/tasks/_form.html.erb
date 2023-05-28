@@ -21,5 +21,6 @@
     <div class="field is-grouped">
       <%= f.submit (params[:action] == "new" ? "Create Task" : "Edit Task"), class: "button is-link" %>
     </div>
+    <%= react_component("recurrence_selector", {type_of_to_do_list: @to_do_list.type_of_to_do_list, controller_action: params[:action], **@to_do_list.as_json} ) %>
   <% end %>
 </div>

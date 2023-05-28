@@ -2,6 +2,7 @@
     <div class="block">
         <div class="title">Tasks</div>
         <%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
+        <%= react_component("RecurrenceSelector") %>
         <div class="subtitle">A Simple Task Manager</div>
         <% puts params %>
         <div><%= link_to "New Task", new_task_path, class: "button is-secondary" %></div>
