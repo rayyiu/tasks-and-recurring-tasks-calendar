@@ -101,10 +101,23 @@ const RecurrenceSelector = (props) => {
               </option>
             </select>
           </div>
+
+          {isRecurringTask && <RecurringTaskConfigurationContainer />}
         </div>
       </div>
     </RecurrenceTaskContext.Provider>
   );
+};
+
+const RecurringTaskConfigurationContainer = () => {
+  const {
+    selectedRecurrenceRate,
+    setSelectedRecurrenceRate,
+    taskStartDate,
+    taskEndDate,
+    setTaskStartDate,
+    setTaskEndDate,
+  } = useContext(RecurrenceTaskContext);
 };
 
 export default RecurrenceSelector;
