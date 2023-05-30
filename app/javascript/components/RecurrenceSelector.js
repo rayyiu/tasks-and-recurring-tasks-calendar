@@ -118,6 +118,31 @@ const RecurringTaskConfigurationContainer = () => {
     setTaskStartDate,
     setTaskEndDate,
   } = useContext(RecurrenceTaskContext);
+
+  return (
+    <>
+      <div className="row">
+        <label className="label">Recurrence Rate*</label>
+        <div className="recurrence-rate-options">
+          {RECURRENCE_RATES.map((recurrenceRate) => {
+            <div
+              className="recurrence-rate-selector"
+              key={recurrenceRate.value}
+            >
+              <input
+                type="radio"
+                name="task[recurrence_rate"
+                value={recurrenceRate.value}
+                id={recurrenceRate.label}
+                checked={selectedRecurrenceRate === recurrenceRate.value}
+                onChange={() => setSelectedRecurrenceRate(recurrenceRate.value)}
+              />
+            </div>;
+          })}
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default RecurrenceSelector;
