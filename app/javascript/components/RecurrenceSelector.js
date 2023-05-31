@@ -137,12 +137,27 @@ const RecurringTaskConfigurationContainer = () => {
                 checked={selectedRecurrenceRate === recurrenceRate.value}
                 onChange={() => setSelectedRecurrenceRate(recurrenceRate.value)}
               />
+              <label htmlFor={recurrenceRate.label}>
+                {recurrenceRate.label}
+              </label>
             </div>;
           })}
+          {selectedRecurrenceRate === "custom" && customRecurringRateSelector}
         </div>
       </div>
     </>
   );
+};
+
+const customRecurringRateSelector = () => {
+  const {
+    selectedCustomRecurrenceRate,
+    setSelectedCustomRecurrenceRate,
+    selectedCustomRecurrenceType,
+    setSelectedCustomRecurrenceType,
+    selectedWeekdays,
+    setSelectedWeekdays,
+  } = useContext(RecurrenceTaskContext);
 };
 
 export default RecurrenceSelector;
