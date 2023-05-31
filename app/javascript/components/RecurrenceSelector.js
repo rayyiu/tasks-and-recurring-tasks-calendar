@@ -142,7 +142,9 @@ const RecurringTaskConfigurationContainer = () => {
               </label>
             </div>
           ))}
-          {selectedRecurrenceRate === "custom" && customRecurringRateSelector}
+          {selectedRecurrenceRate === "custom" && (
+            <CustomRecurringRateSelector />
+          )}
         </div>
       </div>
     </>
@@ -159,9 +161,60 @@ const customRecurringRateSelector = () => {
     setSelectedWeekdays,
   } = useContext(RecurrenceTaskContext);
 
-  // const weekdayOnSelect = (selectedWeekdayValue) => {
-  //   if (selectedWeekdays.includes())
-  // };
+  const weekdayOnSelect = (selectedWeekdayValue) => {
+    if (selectedWeekdays.includes(selectedWeekdayValue)) {
+      setSelectedWeekdays(
+        selectedWeekdays.filter((weekday) => weekday !== selectedWeekdayValue)
+      );
+    } else {
+      setSelectedWeekdays([...selectedWeekdays, selectedWeekdayValue]);
+    }
+  };
+
+  return (
+    <div className="custom-recurring-rate-selectors">
+      <label className="label">Repeat every</label>
+      <div className="selectors-containers">
+        <input
+          type="number"
+          className="input recurrence-rate-input"
+          name="task[custom_recur_frequency_number]"
+          value={selectedCustomRecurrenceRate}
+          onChange={(e) => setSelectedCustomRecurrenceRate(e.target.value)}
+        />
+        <div className="select is-rounded">
+          <select
+            name="task[custom_recur_frequency_number]"
+            value={selectedCustomRecurrenceRate}
+            onChange={(e) => setSelectedCustomRecurrenceRate(e.target.value)}
+          >
+            <div className="select is-rounded">
+              <select
+                name="task[custom_recur_frequency_interval]"
+                id="task_recurring_task"
+                onChange={(e) =>
+                  setSelectedCustomRecurrenceType(e.target.value)
+                }
+              >
+                {CUSTOM_RECURRENCE_RATES.map((customRecurrenceRate) => (
+                  <option
+                    key={customRecurrenceRate.value}
+                    value={customRecurrenceRate.value}
+                    selected={
+                      customRecurrenceRate.value ===
+                      selectedCustomRecurrenceType
+                    }
+                  >
+                    {customRecurrenceRate.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </select>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default RecurrenceSelector;
