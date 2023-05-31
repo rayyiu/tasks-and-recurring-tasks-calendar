@@ -124,14 +124,14 @@ const RecurringTaskConfigurationContainer = () => {
       <div className="row">
         <label className="label">Recurrence Rate*</label>
         <div className="recurrence-rate-options">
-          {RECURRENCE_RATES.map((recurrenceRate) => {
+          {RECURRENCE_RATES.map((recurrenceRate) => (
             <div
               className="recurrence-rate-selector"
               key={recurrenceRate.value}
             >
               <input
                 type="radio"
-                name="task[recurrence_rate"
+                name="task[recurrence_rate]"
                 value={recurrenceRate.value}
                 id={recurrenceRate.label}
                 checked={selectedRecurrenceRate === recurrenceRate.value}
@@ -140,8 +140,8 @@ const RecurringTaskConfigurationContainer = () => {
               <label htmlFor={recurrenceRate.label}>
                 {recurrenceRate.label}
               </label>
-            </div>;
-          })}
+            </div>
+          ))}
           {selectedRecurrenceRate === "custom" && customRecurringRateSelector}
         </div>
       </div>
@@ -158,6 +158,10 @@ const customRecurringRateSelector = () => {
     selectedWeekdays,
     setSelectedWeekdays,
   } = useContext(RecurrenceTaskContext);
+
+  // const weekdayOnSelect = (selectedWeekdayValue) => {
+  //   if (selectedWeekdays.includes())
+  // };
 };
 
 export default RecurrenceSelector;
