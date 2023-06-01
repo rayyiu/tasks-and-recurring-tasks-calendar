@@ -183,34 +183,26 @@ const customRecurringRateSelector = () => {
           onChange={(e) => setSelectedCustomRecurrenceRate(e.target.value)}
         />
         <div className="select is-rounded">
-          <select
-            name="task[custom_recur_frequency_number]"
-            value={selectedCustomRecurrenceRate}
-            onChange={(e) => setSelectedCustomRecurrenceRate(e.target.value)}
-          >
-            <div className="select is-rounded">
-              <select
-                name="task[custom_recur_frequency_interval]"
-                id="task_recurring_task"
-                onChange={(e) =>
-                  setSelectedCustomRecurrenceType(e.target.value)
-                }
-              >
-                {CUSTOM_RECURRENCE_RATES.map((customRecurrenceRate) => (
-                  <option
-                    key={customRecurrenceRate.value}
-                    value={customRecurrenceRate.value}
-                    selected={
-                      customRecurrenceRate.value ===
-                      selectedCustomRecurrenceType
-                    }
-                  >
-                    {customRecurrenceRate.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </select>
+          <div className="select is-rounded">
+            <select
+              name="task[custom_recur_frequency_interval]"
+              id="task_recurring_task"
+              onChange={(e) => setSelectedCustomRecurrenceType(e.target.value)}
+            >
+              {CUSTOM_RECURRENCE_RATES.map((customRecurrenceRate) => (
+                <option
+                  key={customRecurrenceRate.value}
+                  value={customRecurrenceRate.value}
+                  selected={
+                    customRecurrenceRate.value === selectedCustomRecurrenceType
+                  }
+                >
+                  {customRecurrenceRate.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          {selectedCustomRecurrenceType === "weeks"}
         </div>
       </div>
     </div>
