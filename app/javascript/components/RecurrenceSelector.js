@@ -151,7 +151,7 @@ const RecurringTaskConfigurationContainer = () => {
   );
 };
 
-const customRecurringRateSelector = () => {
+const CustomRecurringRateSelector = () => {
   const {
     selectedCustomRecurrenceRate,
     setSelectedCustomRecurrenceRate,
@@ -183,28 +183,55 @@ const customRecurringRateSelector = () => {
           onChange={(e) => setSelectedCustomRecurrenceRate(e.target.value)}
         />
         <div className="select is-rounded">
-          <div className="select is-rounded">
-            <select
-              name="task[custom_recur_frequency_interval]"
-              id="task_recurring_task"
-              onChange={(e) => setSelectedCustomRecurrenceType(e.target.value)}
-            >
-              {CUSTOM_RECURRENCE_RATES.map((customRecurrenceRate) => (
-                <option
-                  key={customRecurrenceRate.value}
-                  value={customRecurrenceRate.value}
-                  selected={
-                    customRecurrenceRate.value === selectedCustomRecurrenceType
-                  }
-                >
-                  {customRecurrenceRate.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            name="task[custom_recur_frequency_interval]"
+            id="task_recurring_task"
+            onChange={(e) => setSelectedCustomRecurrenceType(e.target.value)}
+          >
+            {CUSTOM_RECURRENCE_RATES.map((customRecurrenceRate) => (
+              <option
+                key={customRecurrenceRate.value}
+                value={customRecurrenceRate.value}
+                selected={
+                  customRecurrenceRate.value === selectedCustomRecurrenceType
+                }
+              >
+                {customRecurrenceRate.label}
+              </option>
+            ))}
+          </select>
           {selectedCustomRecurrenceType === "weeks"}
         </div>
       </div>
+      {selectedCustomRecurrenceType === "weeks" && (
+        <div className="row">
+          <label className="label">Repeats on</label>
+          <div className="weekday-selector">
+            {WEEKDAY_MAPPING.map((weekdayMapping) => (
+              <div
+                className={`weekday-selector-option ${
+                  selectedWeekdays.includes(weekdayMapping.value)
+                    ? "selected"
+                    : ""
+                }`}
+                onClick={() => weekdayOnSelect(weekdayMapping.value)}
+              >
+                {weekdayMapping.label}
+                <input
+                  name={`task[repeat_on_${weekdayMapping.value}]`}
+                  type="hidden"
+                  value={
+                    selectedWeekdays.includes(weekdayMapping.value)
+                      ? "true"
+                      : "false"
+                  }
+                  autocomplete="off"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
