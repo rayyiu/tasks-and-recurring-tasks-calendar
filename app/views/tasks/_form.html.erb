@@ -14,6 +14,7 @@
       <%= f.label :task_date, class: "label" %>
       <div class="control"><%= f.date_field :task_date, value: @task.task_date, class: "input" %></div>
     </div>
+    <%= react_component("RecurrenceSelector", {type_of_task: @task.type_of_task, controller_action: params[:action], **@task.as_json} ) %>
     <div class="field">
       <%= f.label :is_urgent, class: "label" %>
       <div class="control"><%= f.check_box :is_urgent, value: @task.is_urgent, class: "checkbox" %></div>
