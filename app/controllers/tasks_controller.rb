@@ -15,8 +15,16 @@ class TasksController < ApplicationController
   end
 
   def create
-    puts params.inspect
-    @task = Task.new(task_params)
+    # @to_do_list = if to_do_list_params[:to_do_list_type_selection] == 'recurring'
+    #   RecurringToDoList.new(formatted_to_do_list_params)
+    # else
+    #   ToDoList.new(formatted_to_do_list_params)
+    # end
+    @task = if task_params[:task_type_selection] == 'recurring'
+              RecurringTask.new(task_params)
+            else
+              Task.new(task_params)
+            end
 
     if @task.save
       redirect_to action: 'index', status: 303
@@ -63,7 +71,12 @@ class TasksController < ApplicationController
   # so we need to grab the date_param and store it in a variable, and then select all the tasks that have that task_date
 
   def task_params
-    params.require(:task).permit(:task_date, :title, :task_description)
+    params.require(:task).permit(:task_date, :title, :task_description, :recurrence_rate,
+                                 :custom_recur_frequency_number,
+                                 :custom_recur_frequency_interval,
+                                 :repeat_on_0, :repeat_on_1, :repeat_on_2, :repeat_on_3, :repeat_on_4, :repeat_on_5, :repeat_on_6,
+                                 :recurrence_start_date,
+                                 :recurrence_end_date, :task_type_selection)
   end
 
   VALID_ACTIONS = %w[new edit]
