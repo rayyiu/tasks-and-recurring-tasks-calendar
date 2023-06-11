@@ -15,11 +15,6 @@ class TasksController < ApplicationController
   end
 
   def create
-    # @to_do_list = if to_do_list_params[:to_do_list_type_selection] == 'recurring'
-    #   RecurringToDoList.new(formatted_to_do_list_params)
-    # else
-    #   ToDoList.new(formatted_to_do_list_params)
-    # end
     @task = if task_params[:task_type_selection] == 'recurring'
               RecurringTask.new(formatted_task_params)
             else
