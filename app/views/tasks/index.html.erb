@@ -4,9 +4,10 @@
         <div class="subtitle">A Simple Task Manager</div>
         <% puts params %>
         <div><%= link_to "New Task", new_task_path, class: "button is-secondary" %></div>
-        <div><%= link_to "Next Day"%></div>
-        <%= link_to "« Previous Day", tasks_path(task_date: Date.parse(params[:task_date]) - 1.day), class: "previous-day-button"%>
-        <div><%= link_to "Previous Day"%></div>
+        <% if params[:task_date].present? %>
+            <%= link_to "Next Day »", tasks_path(task_date: Date.parse(params[:task_date]) + 1.day)%>
+            <%= link_to "« Previous Day", tasks_path(task_date: Date.parse(params[:task_date]) - 1.day)%>
+        <% end %>
         <%= form_tag tasks_path, method: :get do %>
             <%= label_tag :task_date, "filter by date" %>
             <% if params[:task_date].present? %>
