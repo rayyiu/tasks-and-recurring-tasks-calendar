@@ -1,8 +1,8 @@
 <div>
 <% if @tasks.present? %>
     <% @tasks.each do |task| %>
-        <div class="card">
-            <div class="card-content">
+        <div class="task card">
+            <div class="card-content task-content">
                 <div class="row">
                     <div class="title"><%= task.title%></div>
                     <div class="subtitle"><%= task.task_description %></div>

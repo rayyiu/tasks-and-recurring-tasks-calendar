@@ -7,9 +7,10 @@
         <% if params[:task_date].present? %>
             <%= link_to "Next Day »", tasks_path(task_date: Date.parse(params[:task_date]) + 1.day)%>
             <%= link_to "« Previous Day", tasks_path(task_date: Date.parse(params[:task_date]) - 1.day)%>
+        <% else %>
+            <div>please choose a date</div>
         <% end %>
         <%= form_tag tasks_path, method: :get do %>
-            <%= label_tag :task_date, "filter by date" %>
             <% if params[:task_date].present? %>
                 <%= date_field_tag :task_date, params[:task_date].in_time_zone('Pacific Time (US & Canada)').to_date %>
             <% else %>
