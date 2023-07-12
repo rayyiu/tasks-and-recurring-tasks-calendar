@@ -26,10 +26,5 @@
                 <%= render partial: 'tasks', locals: { item: task } %>
             <% end %>
         <% end %>
-        <% if @completed_tasks.present? %>
-            <% @completed_tasks.each do |task| %>
-            <%= render partial: 'tasks', locals: { item: task } %>
-            <% end %>
-        <% end %>
     </div>
 </div>

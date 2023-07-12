@@ -17,7 +17,7 @@ class TasksController < ApplicationController
   def create
     @task = if task_params[:task_type_selection] == 'recurring'
               RecurringTask.new(formatted_task_params)
-            else
+            elsif task_params[:task_type_selection] == 'one time'
               Task.new(formatted_task_params)
             end
 
