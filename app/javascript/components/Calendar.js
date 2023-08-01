@@ -38,22 +38,30 @@ const Calendar = () => {
   );
 
   return (
-    <div className="calendar">
-      <h2>
-        {new Date(year, month).toLocaleString("default", { month: "long" })}{" "}
-        {year}
-      </h2>
-      <div className="calendar-grid">
-        {daysArray.map((day) => (
-          <div className="day" key={day}>
-            <div className="day-number">{day}</div>
-            {/* Add your task list component here */}
-          </div>
-        ))}
-      </div>
-      <div className="calendar-navigation">
-        <button onClick={goToPreviousMonth}>Previous Month</button>
-        <button onClick={goToNextMonth}>Next Month</button>
+    <div className="section">
+      <div className="container">
+        <h2 className="title is-4">
+          {new Date(year, month).toLocaleString("default", { month: "long" })}{" "}
+          {year}
+        </h2>
+        <div className="columns is-multiline">
+          {daysArray.map((day) => (
+            <div className="column is-one-fifth" key={day}>
+              <div className="box">
+                <div className="has-text-centered">{day}</div>
+                {/* Add your task list component here */}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="buttons">
+          <button className="button" onClick={goToPreviousMonth}>
+            Previous Month
+          </button>
+          <button className="button" onClick={goToNextMonth}>
+            Next Month
+          </button>
+        </div>
       </div>
     </div>
   );
