@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Calendar = () => {
-  // Get the current date
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
 
-  // State to track the current month and year
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
+  const [tasks, setTasks] = useState([]);
 
   const goToPreviousMonth = () => {
     if (month === 0) {
@@ -28,10 +28,28 @@ const Calendar = () => {
     }
   };
 
-  // Get the number of days in the current month
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  useEffect(() => {
+    const fetchTasks = async () => {
+      axios
+        .post("/calendar/index", { year, month })
+        .then((response) => {
+          setTasks(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching tasks:", error);
+        });
+      // try {
+      //   const response = await axios.get(`/calendar/${year}/${month + 1}`);
+      //   console.log("Response data:", response.data);
+      //   setTasks(response.data);
+      // } catch (error) {
+      //   console.error("Error fetching tasks", error);
+      // }
+    };
+    fetchTasks();
+  }, [year, month]);
 
-  // Generate an array of days in the current month
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
   const daysArray = Array.from(
     { length: daysInMonth },
     (_, index) => index + 1
@@ -61,6 +79,31 @@ const Calendar = () => {
           <button className="button" onClick={goToNextMonth}>
             Next Month
           </button>
+        </div>
+      </div>
+      {Array.isArray(tasks) && tasks.length > 0 ? (
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>{task.description}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No tasks found for this month.</p>
+      )}
+
+      {/* Display list of tasks */}
+      <div className="section">
+        <div className="container">
+          <h2 className="title is-5">Tasks</h2>
+          {tasks.length > 0 ? (
+            <ul>
+              {tasks.map((task) => (
+                <li key={task.id}>{task.description}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No tasks found for this month.</p>
+          )}
         </div>
       </div>
     </div>
